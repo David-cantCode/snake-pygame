@@ -14,7 +14,7 @@ clock  = py.time.Clock()
 
 
 class Player:
-    def __init__(self, position, direction, last_position, size, body_positions):
+    def __init__(self, position, direction, last_position, size):
 
         #idea for movement: 
             #store head pos in position
@@ -25,7 +25,7 @@ class Player:
         self.direction = list(direction)  #gotta conv to list bc you cant assign values to tuples which is dumb
         self.last_position = last_position 
         self.size = size
-        self.body_positions = body_positions
+        self.body_positions = []
 
 
 
@@ -47,28 +47,20 @@ class Player:
       
 
 
-
     #update head pos                                      
 
-        self.last_posisiton = self.last_position
+        prev_position = self.position.copy()
                                              #* tile size to lock to map
         self.position[0] += self.direction[0] * settings.sqaure_size
         self.position[1] += self.direction[1] * settings.sqaure_size
 
 
+
     #update body
-        if self.size != 1:
-            self.body_positions = self.last_posisitons
-
-        for pos in self.body_positions:
-            i = 1
-            if self.size == 1: break
-
-            self.body_positions[i] = self.body_positions[i - 1]
-
-            if self.size < i: break
-
-            i += 1
+        if self.size > 1:
+            self.body_positions.insert(0, prev_position)  # add old head
+            if len(self.body_positions) > self.size - 1:  # trim tail
+                self.body_positions.pop()
 
 
 
@@ -84,9 +76,7 @@ class Player:
         #draw body
 
         for body in self.body_positions:
-            i = 0
-            py.draw.rect(screen, (0,250,0), (self.body_positions[i], self.body_positions[i], settings.sqaure_size, settings.sqaure_size))
-            i +=  1
+            py.draw.rect(screen, (0, 200, 0),(body[0], body[1],settings.sqaure_size, settings.sqaure_size))
 
         print(f" Pos: {self.position[0]} , {self.position[1]}")
         print(f" Dir : {self.direction[0]} , {self.direction[1]}")
@@ -98,7 +88,7 @@ class Player:
 
 
 
-player = Player((250,250), (0,1), [0], 1, [0] )
+player = Player((250,250), (0,1), [0], 3)
 
 
 
