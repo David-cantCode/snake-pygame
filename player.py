@@ -65,3 +65,8 @@ class Player:
         print(f" Pos: {self.position[0]} , {self.position[1]}")
         print(f" Dir : {self.direction[0]} , {self.direction[1]}")
 
+
+
+    def get_positions(self):
+        #ret all pos of head and all of body
+        return [tuple(self.position)] + [tuple(pos) for pos in self.body_positions]

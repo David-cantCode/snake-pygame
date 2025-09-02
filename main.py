@@ -2,6 +2,8 @@ import pygame as py
 import map
 import settings
 import player as p
+import food as f
+import random as rn
 
 screen_w =  settings.sqaure_size * map.cols
 screen_h =  settings.sqaure_size * map.rows
@@ -11,8 +13,7 @@ screen = py.display.set_mode((screen_w, screen_h))
 py.display.set_caption("snake ") 
 clock  = py.time.Clock()
 
-
-
+active_food = False #if there is food on the map true 
 
 
 
@@ -20,6 +21,35 @@ clock  = py.time.Clock()
 
 #              ini_position   ini_dir    size 
 player = p.Player((250,250),   (0,1),     2,      screen)
+
+food = 0
+
+
+
+def get_food():
+
+    #check to positions of player so we dont spawn food on him 
+    all_positions = [(x * settings.sqaure_size, y * settings.sqaure_size) for x in range(map.cols) for y in range(map.rows)]
+    player_positions = player.get_positions()
+
+
+    valid_positions = [pos for pos in all_positions if pos not in player_positions]
+
+    if not valid_positions: settings.game_over = true
+
+
+
+            
+    return f.Food(rn.choice(valid_positions), screen)
+
+
+
+
+
+
+
+def reset_game():
+    pass
 
 
 
@@ -58,16 +88,26 @@ while running:
 
 
 
-
-
-
-
     screen.fill((0, 0, 0)) 
     player.draw()
     player.move()
+
+
+
+
+    if not active_food: food = get_food()
+    if settings.game_over: reset_game() 
+
+    food.draw()
+
+
+
+
+
+    if food.eaten_check(player.get_positions()) == True: player.size += 1; active_food == False            
    
 
-   
+
 
     py.display.flip() 
-    clock.tick(5)
+    clock.tick(settings.fps)
