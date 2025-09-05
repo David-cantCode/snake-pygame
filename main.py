@@ -28,8 +28,10 @@ food = 0
 
 def get_food():
 
+    global active_food
+
     #check to positions of player so we dont spawn food on him 
-    all_positions = [(x * settings.sqaure_size, y * settings.sqaure_size) for x in range(map.cols) for y in range(map.rows)]
+    all_positions = [(x * settings.sqaure_size + 10, y * settings.sqaure_size + 10) for x in range(map.cols) for y in range(map.rows)]
     player_positions = player.get_positions()
 
 
@@ -38,7 +40,7 @@ def get_food():
     if not valid_positions: settings.game_over = true
 
 
-
+    active_food = True
             
     return f.Food(rn.choice(valid_positions), screen)
 
@@ -104,7 +106,7 @@ while running:
 
 
 
-    if food.eaten_check(player.get_positions()) == True: player.size += 1; active_food == False            
+    if food.eaten_check(player.position) == True: player.size += 1; active_food = False
    
 
 

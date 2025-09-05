@@ -15,7 +15,14 @@ class Food:
         py.draw.rect(self.screen, (250,0,0), (self.position[0], self.position[1], settings.sqaure_size, settings.sqaure_size))
 
 
-    def eaten_check(self, player_positions):
-        return False
+    def eaten_check(self, player_position):
+            print(self.position)
 
-        #ret false or true if eaten ye
+            if player_position[0] == self.position[0] and player_position[1] == self.position[1]:
+                return True
+            return False
+
+
+
+
+
