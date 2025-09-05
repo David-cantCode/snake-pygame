@@ -20,7 +20,7 @@ active_food = False #if there is food on the map true
 
 
 #              ini_position   ini_dir    size 
-player = p.Player((250,250),   (0,1),     2,      screen)
+player = p.Player((250,250),   (0,1),     4,      screen)
 
 food = 0
 
@@ -51,12 +51,10 @@ def get_food():
 
 
 def reset_game():
-    pass
-
-
-
-
-
+    global active_food
+    player.reset()
+    active_food = False
+    
 
 
 
@@ -68,7 +66,7 @@ while running:
             running = False
 
 
-        #key interupts sorry for all the if statements
+        #key interupts sorhe if statements
         if event.type == py.KEYDOWN:
 
             if event.key == py.K_w: 
@@ -104,10 +102,10 @@ while running:
 
 
 
-
-
     if food.eaten_check(player.position) == True: player.size += 1; active_food = False
    
+
+    if player.is_eat_self(): reset_game()
 
 
 

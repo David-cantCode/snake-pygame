@@ -1,6 +1,8 @@
 import pygame as py
 import settings 
 import map
+import random 
+
 
 class Player:
     def __init__(self, position, direction, size, screen):
@@ -70,3 +72,22 @@ class Player:
     def get_positions(self):
         #ret all pos of head and all of body
         return [tuple(self.position)] + [tuple(pos) for pos in self.body_positions]
+
+
+
+
+
+
+    def is_eat_self(self):
+        for body in self.body_positions:
+            if self.position[0] ==  body[0] and self.position[1] == body[1]:
+                return True 
+        
+        return False
+
+
+
+    def reset(self):
+        self.size = 1
+        self.position[0] = 250; self.position[1] = 250
+        self.body_positions.clear()
