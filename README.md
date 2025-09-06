@@ -1,5 +1,5 @@
 # snake-pygame
 
-(UN FINISHED)
+finished 
 
-<img width="1920" height="1200" alt="2025-09-02-103115_1920x1200_scrot" src="https://github.com/user-attachments/assets/6adc0de5-15a1-4efa-bec6-2378db01844e" />
+<img width="1112" height="843" alt="image" src="https://github.com/user-attachments/assets/68cb7c28-0f54-403f-8501-e06e7ff31146" />
